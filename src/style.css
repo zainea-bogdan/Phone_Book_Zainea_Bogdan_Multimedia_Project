@@ -1,0 +1,269 @@
+/*aici basically am importat un cont cute de pe google fonts */
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+/*here basically what i did was the following: ensuring the basic setup for working on.
+like making sure i don t get unexpected margin/padding or other space default from browser
+setting the font globally for all elements
+the role of the transition is ensuring when the color or "state" of a html element change , it's done smooth, and not clicky vibe :) 
+*/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Nunito", sans-serif;
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+
+/*for the development of light-dark theme i decided to go with css variables for better management of the colors
+
+the design pattern in the root is what is exercute when the application is launched.
+
+by that i mean that the app will have the light theme setted as default
+*/
+
+:root {
+  /* light theme pallete */
+  --bg-color: #fdf6f0; /*background color*/
+  --text-color: #4b3832; /*text color of each element*/
+  --container-bg: #fffaf6; /*background color of the container that contains all the elements the one with class .main_container*/
+  --table-bg: #fffaf6; /*the background color  for table baclkground elements such as the form one or the lines of the tables*/
+  --table-header: #e7d9ce;
+  --table-footer: #f5ede6;
+  --accent-color: #c7a693;
+  --button-bg: #a47160;
+  --button-hover: #8d5f4d;
+  --input-bg: #fdf8f4;
+  --input-border: #d8cfc4;
+  --input-focus-border: #c7a693;
+  --input-focus-glow: rgba(199, 166, 147, 0.5);
+}
+
+body.dark-mode {
+  /* dark theme pallete */
+  --bg-color: #2e1f1b;
+  --text-color: #f3e5dc;
+  --container-bg: #3a2723;
+  --table-bg: #4a332d;
+  --table-header: #5c3e36;
+  --table-footer: #3a2a25;
+  --accent-color: #d4a58a;
+  --button-bg: #b67b62;
+  --button-hover: #9d664f;
+  --input-bg: #4a332d;
+  --input-border: #7d5e52;
+  --input-focus-border: #d4a58a;
+  --input-focus-glow: rgba(212, 165, 138, 0.4);
+}
+
+/*design for the page itself*/
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+  transition: background-color 0.4s ease;
+}
+/*this is the design for the container that contain the elements */
+.main_container {
+  background-color: var(--container-bg);
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(75, 56, 50, 0.15);
+  width: 90%;
+  max-width: 800px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  transition: background-color 0.4s ease;
+}
+
+/*input_content is the container that contains the h1 and the form itself*/
+.input_content h1 {
+  text-align: center;
+  font-size: 2rem;
+  color: var(--accent-color);
+  margin-bottom: 1.5rem;
+}
+
+/*form container is the form itself */
+#form_container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: center;
+}
+
+#form_container input {
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--input-border);
+  border-radius: 10px;
+  background-color: var(--input-bg);
+  font-size: 1rem;
+  transition: all 0.25s ease;
+}
+
+/*basically here when a user want to write in a specific part of the form, it has like a "focus mode" , by that meaning to know where he writes*/
+#form_container input:focus {
+  outline: none; /*the browser by default makes the otuline blue for focus, but i wanna overwrite that*/
+  background-color: var(--container-bg);
+  border-color: var(--input-focus-border);
+  box-shadow: 0 0 6px var(--input-focus-glow), inset 0 0 3px rgba(255, 255, 255, 0.3);
+  transform: scale(1.02); /*this helps to enlarge the input liek making it slightly bigger*/
+}
+
+/*the design for the button to add person contacnt*/
+#form_container button {
+  background-color: var(--button-bg);
+  color: var(--table-bg);
+  border: none;
+  border-radius: 10px;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+#form_container button:hover {
+  background-color: var(--button-hover);
+  transform: scale(1.05);
+}
+
+/*design for table area*/
+.table_content {
+  background-color: var(--table-bg);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: inset 0 0 8px rgba(199, 166, 147, 0.1);
+}
+
+#agenda_table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  background-color: var(--table-bg);
+  border-radius: 8px;
+  overflow: hidden; /*basically it ensure no overlapping between child elements*/
+}
+
+#agenda_table thead td {
+  background-color: var(--table-header);
+  font-weight: bold;
+  padding: 0.8rem;
+}
+
+#agenda_table tbody td {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0.6rem;
+}
+
+#agenda_table tfoot td {
+  padding: 0.8rem;
+  color: var(--accent-color);
+  font-style: italic;
+  background-color: var(--table-footer);
+}
+
+#agenda_table tbody tr:hover {
+  background-color: rgba(199, 166, 147, 0.15);
+}
+
+/* design for delete button */
+.table_content button {
+  margin-top: 1rem;
+  background-color: var(--button-bg);
+  color: var(--table-bg);
+  border: none;
+  border-radius: 10px;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.table_content button:hover {
+  background-color: var(--button-hover);
+  transform: scale(1.05);
+}
+
+/*design for toggle theme*/
+.theme-toggle {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+}
+
+#theme_btn {
+  background-color: var(--button-bg);
+  color: var(--table-bg);
+  border: none;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+#theme_btn:hover {
+  background-color: var(--button-hover);
+  transform: scale(1.05);
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--accent-color);
+  border-radius: 6px;
+  background-color: var(--table-bg);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.25s ease;
+}
+
+/* checkbox hover effect*/
+input[type="checkbox"]:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 5px rgba(199, 166, 147, 0.4);
+}
+
+/* checbox state design */
+input[type="checkbox"]:checked {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+/* The checkmark */
+input[type="checkbox"]:checked::after {
+  content: "✔";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  font-size: 14px;
+  color: var(--table-bg);
+}
+
+input[type="checkbox"]:focus {
+  outline: none;
+  box-shadow: 0 0 5px var(--input-focus-glow);
+}
+
+input[type="checkbox"] {
+  border-radius: 20%;
+}
+
+/*this basically creates a fade in effect for page, that goes from invisibile to visible 
+*/
+body {
+  opacity: 0;
+  animation: fadeIn 0.6s ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}

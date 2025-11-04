@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="src/style.css" />
+    <script src="src/logic.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="main_container">
+      <div class="theme-toggle">
+        <button id="theme_btn" onclick="toggleTheme()">Dark Mode</button>
+      </div>
+      <div class="input_content">
+        <h1>Phone Book</h1>
+        <form id="form_container">
+          <input type="text" id="Last_Name" />
+          <input type="text" id="First_Name" />
+          <input type="text" id="Phone_Number" />
+          <button id="send" onclick="salveaza_numar(event)">Add Person's Contact</button>
+        </form>
+      </div>
+      <div class="table_content">
+        <table id="agenda_table">
+          <thead>
+            <tr>
+              <td colspan="4">List of Persons</td>
+            </tr>
+            <tr>
+              <td>Select Item</td>
+              <td>Last Name</td>
+              <td>First Name</td>
+              <td>Phone Number</td>
+            </tr>
+          </thead>
+          <tbody></tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4" id="table_footer">Number of persons: 0</td>
+            </tr>
+          </tfoot>
+        </table>
+        <button onclick="delete_person()">Delete Person Selected</button>
+      </div>
+    </div>
+  </body>
+</html>
