@@ -14,7 +14,6 @@ The purpose of this exercise is to create a web page for managing a phonebook us
    - A **title**
    - A **form** with three fields and an **Add Person** button
    - A **table**  
-     _(Presentation suggestion: Image 1)_  
      **– 1p**
 
 2. **Table Header and Footer**  
