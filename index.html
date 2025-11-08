@@ -8,6 +8,7 @@
     <title>Document</title>
   </head>
   <body>
+    <div id="loading_screen"></div>
     <div class="main_container">
       <div class="theme-toggle">
         <button id="theme_btn" onclick="toggleTheme()">Dark Mode</button>
@@ -15,9 +16,9 @@
       <div class="input_content">
         <h1>Phone Book</h1>
         <form id="form_container">
-          <input type="text" id="Last_Name" />
-          <input type="text" id="First_Name" />
-          <input type="text" id="Phone_Number" />
+          <input type="text" id="Last_Name" placeholder="ex: Gica" />
+          <input type="text" id="First_Name" placeholder="ex: Gigel" />
+          <input type="tel" id="Phone_Number" placeholder="07xxxxxxxx" required />
           <button id="send" onclick="salveaza_numar(event)">Add Person's Contact</button>
         </form>
       </div>
@@ -45,4 +46,5 @@
       </div>
     </div>
   </body>
+  <script></script>
 </html>

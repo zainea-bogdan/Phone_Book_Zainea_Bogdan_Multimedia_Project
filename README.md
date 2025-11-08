@@ -2,9 +2,7 @@
 
 ## Goal
 
-The purpose of this exercise is to create a web page for managing a phonebook using concepts from the first three labs (**HTML**, **CSS**, **JavaScript**).
-
----
+The purpose of this exercise is to create a web page for managing a phonebook using concepts from the first three labs (**HTML**, **CSS**, **JavaScript**)
 
 ## Requirements
 
@@ -51,3 +49,8 @@ The purpose of this exercise is to create a web page for managing a phonebook us
 10. **Theme Switcher**  
     Add a **dark/light theme** option for the created page.  
     **– 1p**
+
+## Bonus (Added by Moa :) ):
+
+Use **Web Storage (localStorage)** to keep the phonebook data consistent across sessions.  
+This ensures that contacts remain saved even after refreshing or closing the page.

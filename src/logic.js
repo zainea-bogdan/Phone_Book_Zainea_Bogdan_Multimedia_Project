@@ -1,58 +1,71 @@
 function salveaza_numar(event) {
   //here basically i prevented the form from refreshing my page
   event.preventDefault();
-  //i start creating the row that needs to be added in my table based on the input data
-  const newRow = document.createElement("tr");
-  //creating the first cell of the row, which is checkbox for easier deletion of the item
-  let checkbox = document.createElement("td");
-  let checkbox_data = document.createElement("input");
-  checkbox_data.setAttribute("type", "checkbox");
-  checkbox_data.className = "selected_item";
-  checkbox.appendChild(checkbox_data);
-  newRow.appendChild(checkbox);
 
-  //after that i created each cell for each element from the input
+  //taking data from input zones
 
   const lastName = document.getElementById("Last_Name").value.trim();
   const firstName = document.getElementById("First_Name").value.trim();
   const phoneNumber = document.getElementById("Phone_Number").value.trim();
+  const regex = /^07[0-9]{8}$/;
+  if (!regex.test(phoneNumber)) {
+    alert("invalid phone number");
+  } else {
+    //i start creating the row that needs to be added in my table based on the input data
+    const newRow = document.createElement("tr");
+    //creating the first cell of the row, which is checkbox for easier deletion of the item
+    let checkbox = document.createElement("td");
+    let checkbox_data = document.createElement("input");
+    checkbox_data.setAttribute("type", "checkbox");
+    checkbox_data.className = "selected_item";
+    checkbox.appendChild(checkbox_data);
+    newRow.appendChild(checkbox);
 
-  //here i put them in a list for easier looping and append all of the cell to my created row
-  const dataValues = [lastName, firstName, phoneNumber];
-  for (const value of dataValues) {
-    const dataCell = document.createElement("td");
-    dataCell.textContent = value;
-    newRow.appendChild(dataCell);
+    //here i put them in a list for easier looping and append all of the cell to my created row
+    const dataValues = [lastName, firstName, phoneNumber];
+    for (const value of dataValues) {
+      const dataCell = document.createElement("td");
+      dataCell.textContent = value;
+      newRow.appendChild(dataCell);
+    }
+
+    // Bellow I added the logic for storign the values in localstorage
+    // here i create an object newPerson, that s gonna be added to my contacts localstorage
+    const newPerson = {
+      lastName: lastName,
+      firstName: firstName,
+      phoneNumber: phoneNumber,
+    };
+    //here i got my contacts from webstorage, like i deserialise it
+    const items = JSON.parse(localStorage.getItem("contacts") || "[]");
+    // added the newPerson object created
+    items.push(newPerson);
+    // Reserialised the localstorage for later fetching
+    localStorage.setItem("contacts", JSON.stringify(items));
+    // here ends the logic for storing the new contact into the list
+
+    //Appending the new created row to my table
+    const table_body = document.getElementsByTagName("tbody")[0];
+    table_body.appendChild(newRow);
+
+    // Updating the row count
+    const total_row_count = table_body.rows.length;
+    const footer = document.getElementById("table_footer");
+    footer.textContent = "Numbers of persons: " + total_row_count;
+
+    //clear inputs for next contact to be added
+    document.getElementById("Last_Name").value = "";
+    document.getElementById("First_Name").value = "";
+    document.getElementById("Phone_Number").value = "";
+
+    /*loading screen logic*/
+    document.getElementById("loading_screen").style.display = "block";
+    document.getElementsByClassName("main_container")[0].style.display = "none";
+    setTimeout(() => {
+      document.getElementById("loading_screen").style.display = "none";
+      document.getElementsByClassName("main_container")[0].style.display = "flex";
+    }, 200);
   }
-
-  // Bellow I added the logic for storign the values in localstorage
-  // here i create an object newPerson, that s gonna be added to my contacts localstorage
-  const newPerson = {
-    lastName: lastName,
-    firstName: firstName,
-    phoneNumber: phoneNumber,
-  };
-  //here i got my contacts from webstorage, like i deserialise it
-  const items = JSON.parse(localStorage.getItem("contacts") || "[]");
-  // added the newPerson object created
-  items.push(newPerson);
-  // Reserialised the localstorage for later fetching
-  localStorage.setItem("contacts", JSON.stringify(items));
-  // here ends the logic for storing the new contact into the list
-
-  //Appending the new created row to my table
-  const table_body = document.getElementsByTagName("tbody")[0];
-  table_body.appendChild(newRow);
-
-  // Updating the row count
-  const total_row_count = table_body.rows.length;
-  const footer = document.getElementById("table_footer");
-  footer.textContent = "Numbers of persons: " + total_row_count;
-
-  //clear inputs for next contact to be added
-  document.getElementById("Last_Name").value = "";
-  document.getElementById("First_Name").value = "";
-  document.getElementById("Phone_Number").value = "";
 }
 
 function delete_person() {
@@ -84,6 +97,14 @@ function delete_person() {
   //updating the number of rows from the footer
   const footer = document.getElementById("table_footer");
   footer.textContent = "Numbers of persons: " + total_row_count;
+
+  /*loading screen logic*/
+  document.getElementById("loading_screen").style.display = "block";
+  document.getElementsByClassName("main_container")[0].style.display = "none";
+  setTimeout(() => {
+    document.getElementById("loading_screen").style.display = "none";
+    document.getElementsByClassName("main_container")[0].style.display = "flex";
+  }, 200);
 }
 
 /*
@@ -133,6 +154,7 @@ function retrieve_data_from_webstorage() {
     footer.textContent = "Numbers of persons: " + items.length;
   }
 }
+
 function toggleTheme() {
   const body = document.body;
   const btn = document.getElementById("theme_btn");
@@ -145,6 +167,7 @@ function toggleTheme() {
     btn.textContent = "Dark Mode";
   }
 }
+
 //this event listener is used because:
 // - i wanted to learn about event listener
 // - because i wanted to have fetch the localstorage each time the page refreshes
